@@ -1,0 +1,3300 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Pro Elise ✨</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080812;
+    color: white;
+    touch-action: none;
+}
+
+body {
+    position: fixed;
+    inset: 0;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+#background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+
+    background:
+        radial-gradient(circle at 50% 110%, #4a165d 0%, transparent 45%),
+        radial-gradient(circle at 10% 20%, #211d61 0%, transparent 35%),
+        linear-gradient(180deg, #070714 0%, #10102b 55%, #160d27 100%);
+}
+
+.moon {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+    top: 8%;
+    right: 10%;
+
+    background: #fff7df;
+
+    box-shadow:
+        0 0 20px rgba(255,255,230,.8),
+        0 0 60px rgba(255,220,255,.4);
+}
+
+.city {
+    position: absolute;
+    bottom: 0;
+
+    width: 100%;
+    height: 25%;
+
+    display: flex;
+    align-items: flex-end;
+
+    gap: 3px;
+
+    opacity: .7;
+}
+
+.building {
+    background: linear-gradient(#111226,#050509);
+    position: relative;
+}
+
+.building::after {
+    content: "";
+
+    position: absolute;
+    inset: 8px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 10px,
+            rgba(255,90,210,.5) 11px,
+            transparent 13px
+        );
+}
+
+/* =========================
+   SAKURA
+========================= */
+
+.petals {
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: 3;
+}
+
+.petal {
+    position: absolute;
+
+    top: -30px;
+
+    font-size: 18px;
+
+    animation: petalFall linear forwards;
+
+    opacity: .8;
+}
+
+@keyframes petalFall {
+
+    0% {
+        transform:
+            translateY(-30px)
+            rotate(0deg);
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            translateX(80px)
+            rotate(540deg);
+    }
+
+}
+
+/* =========================
+   SCREENS
+========================= */
+
+.screen {
+    position: absolute;
+    inset: 0;
+
+    z-index: 10;
+
+    display: none;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    text-align: center;
+}
+
+.screen.active {
+    display: flex;
+
+    animation:
+        screenIn .7s ease;
+}
+
+@keyframes screenIn {
+
+    from {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.korean {
+
+    font-size:
+        clamp(36px,10vw,70px);
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 10px #ff65d4,
+        0 0 30px #8d6bff;
+
+    animation:
+        glow 2s infinite alternate;
+}
+
+@keyframes glow {
+
+    from {
+
+        text-shadow:
+            0 0 8px #ff65d4,
+            0 0 15px #8d6bff;
+
+    }
+
+    to {
+
+        text-shadow:
+            0 0 20px #ff65d4,
+            0 0 50px #8d6bff;
+
+    }
+
+}
+
+.subtitle {
+
+    margin-top: 14px;
+
+    font-size: 20px;
+
+    opacity: .85;
+}
+
+.smallText {
+
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    opacity: .55;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+button {
+
+    margin-top: 35px;
+
+    padding: 15px 35px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4fc8,
+            #795cff
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(255,79,200,.45);
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+button:active {
+    transform: scale(.92);
+}
+
+/* =========================
+   GAME HEADER
+========================= */
+
+.gameTitle {
+
+    position: absolute;
+
+    top: 40px;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 15px #ff4fc8;
+}
+
+.counter {
+
+    position: absolute;
+
+    top: 85px;
+
+    font-size: 18px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(10px);
+
+    padding:
+        8px 18px;
+
+    border-radius:
+        50px;
+}
+
+/* =========================
+   BALLOONS
+========================= */
+
+#balloonArea {
+
+    position: absolute;
+
+    inset:
+        130px 0 0 0;
+
+    overflow: hidden;
+}
+
+.balloon {
+
+    position: absolute;
+
+    bottom: -120px;
+
+    width: 65px;
+    height: 80px;
+
+    border-radius:
+        50% 50% 48% 48%;
+
+    cursor: pointer;
+
+    animation:
+        balloonFly linear forwards;
+
+    box-shadow:
+        inset -8px -10px 15px rgba(0,0,0,.2),
+        0 0 20px rgba(255,255,255,.1);
+}
+
+.balloon::before {
+
+    content:"";
+
+    position:absolute;
+
+    width:8px;
+    height:8px;
+
+    bottom:-5px;
+    left:28px;
+
+    transform:
+        rotate(45deg);
+
+    background:inherit;
+}
+
+.balloon::after {
+
+    content:"";
+
+    position:absolute;
+
+    width:1px;
+    height:45px;
+
+    bottom:-48px;
+    left:32px;
+
+    background:
+        rgba(255,255,255,.4);
+}
+
+@keyframes balloonFly {
+
+    from {
+        transform:
+            translateY(0);
+    }
+
+    to {
+        transform:
+            translateY(-120vh);
+    }
+
+}
+
+.popText {
+
+    position:absolute;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+    pointer-events:none;
+
+    animation:
+        popText .6s forwards;
+}
+
+@keyframes popText {
+
+    0% {
+        opacity:1;
+        transform:scale(.4);
+    }
+
+    50% {
+        transform:scale(1.5);
+    }
+
+    100% {
+        opacity:0;
+        transform:scale(2);
+    }
+
+}
+
+/* =========================
+   GIFTS
+========================= */
+
+#gifts {
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,90px);
+
+    gap:20px;
+
+    margin-top:80px;
+}
+
+.gift {
+
+    width:90px;
+    height:90px;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-size:65px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    filter:
+        drop-shadow(
+            0 0 12px
+            rgba(255,90,200,.4)
+        );
+}
+
+.gift:active {
+    transform:
+        scale(.8);
+}
+
+.gift.shake {
+
+    animation:
+        shake .4s;
+}
+
+@keyframes shake {
+
+    0%,100% {
+        transform:
+            translateX(0);
+    }
+
+    25% {
+        transform:
+            translateX(-10px);
+    }
+
+    75% {
+        transform:
+            translateX(10px);
+    }
+
+}
+
+#giftMessage {
+
+    min-height:50px;
+
+    margin-top:30px;
+
+    font-size:20px;
+
+    font-weight:bold;
+}
+
+/* =========================
+   NOODLE GAME
+========================= */
+
+#starGameArea {
+
+    position:absolute;
+
+    inset:
+        130px 0 0 0;
+
+    overflow:hidden;
+}
+
+/* PLAYER */
+
+#player {
+
+    position:absolute;
+
+    bottom:18px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    width:90px;
+    height:115px;
+
+    z-index:5;
+
+    transition:
+        left .06s linear;
+}
+
+.anime-head {
+
+    position:absolute;
+
+    width:62px;
+    height:62px;
+
+    border-radius:50%;
+
+    background:#ffd8c5;
+
+    left:14px;
+    top:0;
+
+    box-shadow:
+        0 0 18px
+        rgba(255,120,210,.5);
+}
+
+.anime-hair {
+
+    position:absolute;
+
+    width:70px;
+    height:42px;
+
+    left:10px;
+    top:-5px;
+
+    border-radius:
+        50% 50% 40% 40%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #442c63,
+            #21132f
+        );
+
+    z-index:2;
+}
+
+.anime-hair::before,
+.anime-hair::after {
+
+    content:"";
+
+    position:absolute;
+
+    background:#2c193d;
+
+    width:20px;
+    height:55px;
+
+    top:20px;
+
+    border-radius:50%;
+}
+
+.anime-hair::before {
+
+    left:0;
+
+    transform:
+        rotate(10deg);
+}
+
+.anime-hair::after {
+
+    right:0;
+
+    transform:
+        rotate(-10deg);
+}
+
+.anime-face {
+
+    position:absolute;
+
+    z-index:3;
+
+    width:62px;
+    height:62px;
+
+    left:14px;
+    top:0;
+}
+
+.eye {
+
+    position:absolute;
+
+    top:30px;
+
+    width:8px;
+    height:11px;
+
+    border-radius:50%;
+
+    background:#39234d;
+}
+
+.eye.left {
+    left:16px;
+}
+
+.eye.right {
+    right:16px;
+}
+
+.mouth {
+
+    position:absolute;
+
+    width:12px;
+    height:6px;
+
+    border-bottom:
+        2px solid #d95b85;
+
+    border-radius:50%;
+
+    left:25px;
+    top:45px;
+}
+
+.anime-body {
+
+    position:absolute;
+
+    width:58px;
+    height:58px;
+
+    left:16px;
+    top:55px;
+
+    border-radius:
+        18px 18px 10px 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff65c3,
+            #805cff
+        );
+}
+
+.arm {
+
+    position:absolute;
+
+    width:16px;
+    height:48px;
+
+    background:#ffd8c5;
+
+    top:58px;
+
+    border-radius:20px;
+
+    z-index:-1;
+}
+
+.arm.left {
+
+    left:7px;
+
+    transform:
+        rotate(20deg);
+}
+
+.arm.right {
+
+    right:7px;
+
+    transform:
+        rotate(-20deg);
+}
+
+/* HAPPY */
+
+#player.happy {
+
+    animation:
+        happyJump .45s ease;
+}
+
+#player.happy .anime-body {
+
+    animation:
+        happyBody .45s ease;
+}
+
+#player.happy .arm.left {
+
+    animation:
+        leftArmHappy .45s ease;
+}
+
+#player.happy .arm.right {
+
+    animation:
+        rightArmHappy .45s ease;
+}
+
+#player.happy .mouth {
+
+    width:18px;
+    height:10px;
+
+    left:22px;
+
+    border-bottom:
+        4px solid #d95b85;
+}
+
+@keyframes happyJump {
+
+    0% {
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(0);
+
+    }
+
+    35% {
+
+        transform:
+            translateX(-50%)
+            translateY(-28px)
+            rotate(-5deg);
+
+    }
+
+    65% {
+
+        transform:
+            translateX(-50%)
+            translateY(-18px)
+            rotate(5deg);
+
+    }
+
+    100% {
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(0);
+
+    }
+
+}
+
+@keyframes happyBody {
+
+    50% {
+        transform:
+            scale(1.08);
+    }
+
+}
+
+@keyframes leftArmHappy {
+
+    50% {
+        transform:
+            rotate(145deg);
+    }
+
+}
+
+@keyframes rightArmHappy {
+
+    50% {
+        transform:
+            rotate(-145deg);
+    }
+
+}
+
+/* NOODLES */
+
+.falling {
+
+    position:absolute;
+
+    top:-90px;
+
+    animation:
+        fall linear forwards;
+
+    z-index:3;
+}
+
+.noodlePack {
+
+    width:58px;
+    height:72px;
+
+    border-radius:8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ff335e,
+            #cc123d
+        );
+
+    border:
+        2px solid #ff91aa;
+
+    box-shadow:
+        0 0 15px
+        rgba(255,60,120,.5);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    font-weight:900;
+
+    transform:
+        rotate(-5deg);
+}
+
+.noodlePack .fire {
+    font-size:20px;
+}
+
+.noodlePack .label {
+
+    font-size:9px;
+
+    letter-spacing:1px;
+
+    margin-top:2px;
+}
+
+.noodlePack .koreanLabel {
+
+    font-size:11px;
+
+    margin-top:2px;
+}
+
+.goldNoodle {
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffd95e,
+            #ff7c28
+        );
+
+    border-color:
+        #fff0a8;
+
+    box-shadow:
+        0 0 25px
+        rgba(255,220,70,.8);
+}
+
+.bomb {
+    font-size:38px;
+}
+
+@keyframes fall {
+
+    from {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+    }
+
+    to {
+
+        transform:
+            translateY(110vh)
+            rotate(360deg);
+
+    }
+
+}
+
+.happyText {
+
+    position:absolute;
+
+    z-index:20;
+
+    font-weight:900;
+
+    font-size:20px;
+
+    color:white;
+
+    text-shadow:
+        0 0 10px #ff65c3,
+        0 0 20px #805cff;
+
+    pointer-events:none;
+
+    animation:
+        happyTextAnim .8s forwards;
+}
+
+@keyframes happyTextAnim {
+
+    0% {
+
+        opacity:0;
+
+        transform:
+            translateY(0)
+            scale(.5);
+
+    }
+
+    30% {
+
+        opacity:1;
+
+        transform:
+            translateY(-20px)
+            scale(1.2);
+
+    }
+
+    100% {
+
+        opacity:0;
+
+        transform:
+            translateY(-65px)
+            scale(1);
+
+    }
+
+}
+
+/* =========================
+   ENDING TRANSITION
+========================= */
+
+#endingTransition {
+
+    background:#050509;
+
+    z-index:50;
+}
+
+.waitText {
+
+    font-size:
+        clamp(24px,7vw,40px);
+
+    font-weight:700;
+
+    opacity:0;
+
+    animation:
+        waitAppear 2s forwards;
+}
+
+@keyframes waitAppear {
+
+    0% {
+        opacity:0;
+        transform:
+            translateY(10px);
+    }
+
+    100% {
+        opacity:1;
+        transform:
+            translateY(0);
+    }
+
+}
+
+#continueButton {
+
+    opacity:0;
+
+    animation:
+        continueAppear 1s
+        1.8s forwards;
+}
+
+@keyframes continueAppear {
+
+    to {
+        opacity:1;
+    }
+
+}
+
+/* =========================
+   SEOUL ENDING
+========================= */
+
+#seoulEnding {
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 70% 20%,
+            rgba(142,92,255,.25),
+            transparent 30%
+        ),
+        linear-gradient(
+            180deg,
+            #070713,
+            #16113b 60%,
+            #271030
+        );
+}
+
+.seoulMoon {
+
+    position:absolute;
+
+    top:7%;
+
+    right:9%;
+
+    width:115px;
+    height:115px;
+
+    border-radius:50%;
+
+    background:#fff9e9;
+
+    box-shadow:
+        0 0 30px #fff,
+        0 0 80px
+        rgba(255,150,240,.35);
+}
+
+.seoulSkyline {
+
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+    height:32%;
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:3px;
+
+    opacity:.9;
+}
+
+.seoulBuilding {
+
+    position:relative;
+
+    background:
+        linear-gradient(
+            180deg,
+            #14142c,
+            #05050a
+        );
+
+    box-shadow:
+        0 0 10px
+        rgba(255,70,210,.08);
+}
+
+.seoulBuilding::after {
+
+    content:"";
+
+    position:absolute;
+
+    inset:8px 5px;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 12px,
+            rgba(255,220,100,.5) 13px,
+            transparent 15px
+        );
+}
+
+.neonSign {
+
+    position:absolute;
+
+    bottom:22%;
+
+    left:7%;
+
+    padding:
+        8px 12px;
+
+    border:
+        1px solid #ff55ce;
+
+    border-radius:5px;
+
+    color:#ff88dd;
+
+    font-size:12px;
+
+    font-weight:bold;
+
+    box-shadow:
+        0 0 10px #ff55ce,
+        inset 0 0 10px
+        rgba(255,85,206,.3);
+
+    transform:
+        rotate(-3deg);
+}
+
+.endingContent {
+
+    position:relative;
+
+    z-index:10;
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+.endingKorean {
+
+    font-size:
+        clamp(34px,9vw,62px);
+
+    font-weight:900;
+
+    text-shadow:
+        0 0 12px #ff65d4,
+        0 0 35px #795cff;
+}
+
+.endingName {
+
+    margin-top:10px;
+
+    font-size:
+        clamp(21px,6vw,30px);
+
+    font-weight:700;
+}
+
+/* =========================
+   ENVELOPES
+========================= */
+
+.envelopes {
+
+    display:flex;
+
+    gap:35px;
+
+    margin-top:45px;
+}
+
+.envelope {
+
+    position:relative;
+
+    width:110px;
+    height:80px;
+
+    border-radius:
+        5px 5px 12px 12px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff0fa,
+            #e4d5ff
+        );
+
+    box-shadow:
+        0 0 25px
+        rgba(255,100,210,.3);
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    overflow:hidden;
+}
+
+.envelope::before {
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:0;
+
+    width:0;
+    height:0;
+
+    border-left:
+        55px solid transparent;
+
+    border-right:
+        55px solid transparent;
+
+    border-top:
+        42px solid #ffc7ec;
+}
+
+.envelope::after {
+
+    content:"🌸";
+
+    position:absolute;
+
+    left:50%;
+    top:47%;
+
+    transform:
+        translate(-50%,-50%);
+
+    font-size:24px;
+}
+
+.envelope:active {
+
+    transform:
+        scale(.9);
+}
+
+.envelope.opened {
+
+    opacity:.45;
+
+    transform:
+        scale(.9);
+}
+
+.envelopeNumber {
+
+    position:absolute;
+
+    bottom:-28px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    font-size:12px;
+
+    opacity:.6;
+}
+
+/* =========================
+   LETTER POPUP
+========================= */
+
+#letterOverlay {
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:100;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    padding:25px;
+
+    background:
+        rgba(3,3,10,.85);
+
+    backdrop-filter:
+        blur(12px);
+}
+
+#letterOverlay.active {
+
+    display:flex;
+
+    animation:
+        letterFade .4s ease;
+}
+
+@keyframes letterFade {
+
+    from {
+        opacity:0;
+    }
+
+    to {
+        opacity:1;
+    }
+
+}
+
+.letter {
+
+    position:relative;
+
+    width:min(
+        90vw,
+        420px
+    );
+
+    min-height:280px;
+
+    padding:
+        40px 25px 30px;
+
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,235,250,.98),
+            rgba(231,221,255,.98)
+        );
+
+    color:#271b36;
+
+    box-shadow:
+        0 0 60px
+        rgba(255,100,210,.3);
+
+    animation:
+        letterOpen .6s ease;
+}
+
+@keyframes letterOpen {
+
+    from {
+
+        opacity:0;
+
+        transform:
+            translateY(30px)
+            scale(.8);
+
+    }
+
+    to {
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+.letterEmoji {
+
+    font-size:50px;
+
+    margin-bottom:20px;
+}
+
+.letterTitle {
+
+    font-size:24px;
+
+    font-weight:900;
+
+    margin-bottom:20px;
+}
+
+.letterText {
+
+    font-size:19px;
+
+    line-height:1.6;
+
+    font-weight:600;
+}
+
+.koreaTicket {
+
+    margin:
+        25px auto 5px;
+
+    width:100%;
+
+    padding:
+        20px 15px;
+
+    border-radius:15px;
+
+    background:#161425;
+
+    color:white;
+
+    box-shadow:
+        0 0 20px
+        rgba(120,90,255,.3);
+}
+
+.ticketRoute {
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:15px;
+
+    font-size:
+        clamp(24px,8vw,34px);
+
+    font-weight:900;
+
+    letter-spacing:2px;
+}
+
+.ticketPlane {
+
+    font-size:24px;
+
+    animation:
+        planeFloat 1.4s
+        infinite alternate ease-in-out;
+}
+
+@keyframes planeFloat {
+
+    to {
+        transform:
+            translateX(7px);
+    }
+
+}
+
+.ticketSmall {
+
+    margin-top:10px;
+
+    font-size:11px;
+
+    letter-spacing:3px;
+
+    opacity:.6;
+}
+
+.closeLetter {
+
+    margin-top:25px;
+
+    padding:
+        12px 28px;
+
+    font-size:15px;
+}
+
+/* =========================
+   FINAL FINAL SCREEN
+========================= */
+
+#finalScreen {
+
+    background:
+        radial-gradient(
+            circle at center,
+            #32164c 0%,
+            #080812 70%
+        );
+
+    overflow:hidden;
+}
+
+.finalKorean {
+
+    font-size:
+        clamp(38px,11vw,70px);
+
+    font-weight:900;
+
+    text-shadow:
+        0 0 15px #ff5ecf,
+        0 0 50px #795cff;
+
+    animation:
+        finalPulse 2s infinite;
+}
+
+@keyframes finalPulse {
+
+    50% {
+        transform:
+            scale(1.06);
+    }
+
+}
+
+.finalMessage {
+
+    margin-top:20px;
+
+    font-size:
+        clamp(19px,5vw,25px);
+
+    font-weight:600;
+}
+
+.signature {
+
+    position:absolute;
+
+    bottom:30px;
+
+    font-size:12px;
+
+    letter-spacing:2px;
+
+    opacity:.35;
+
+    cursor:pointer;
+
+    user-select:none;
+
+    padding:20px;
+}
+
+/* =========================
+   EASTER EGG
+========================= */
+
+#easterEgg {
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:999;
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+    background:
+        radial-gradient(
+            circle,
+            #ff54c8,
+            #30145a 45%,
+            #050509 80%
+        );
+
+    overflow:hidden;
+}
+
+#easterEgg.active {
+
+    display:flex;
+
+    animation:
+        easterAppear .5s ease;
+}
+
+@keyframes easterAppear {
+
+    from {
+        opacity:0;
+        transform:scale(1.2);
+    }
+
+    to {
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+.easterBig {
+
+    font-size:
+        clamp(45px,14vw,90px);
+
+    animation:
+        easterBounce .5s
+        infinite alternate;
+}
+
+@keyframes easterBounce {
+
+    to {
+        transform:
+            translateY(-15px)
+            rotate(5deg);
+    }
+
+}
+
+.easterText {
+
+    margin-top:20px;
+
+    font-size:
+        clamp(18px,5vw,28px);
+
+    font-weight:900;
+
+    text-shadow:
+        0 0 20px white;
+}
+
+.easterSmall {
+
+    margin-top:10px;
+
+    font-size:13px;
+
+    opacity:.6;
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+#confetti {
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:hidden;
+
+    pointer-events:none;
+}
+
+.confettiPiece {
+
+    position:absolute;
+
+    top:-30px;
+
+    font-size:25px;
+
+    animation:
+        confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+
+    to {
+
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+
+    }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:400px) {
+
+    #gifts {
+
+        grid-template-columns:
+            repeat(3,75px);
+
+        gap:15px;
+    }
+
+    .gift {
+
+        width:75px;
+        height:75px;
+
+        font-size:55px;
+    }
+
+    .envelopes {
+
+        gap:20px;
+    }
+
+    .envelope {
+
+        width:95px;
+        height:70px;
+    }
+
+    .envelope::before {
+
+        border-left-width:47px;
+        border-right-width:47px;
+        border-top-width:37px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+BACKGROUND
+========================= -->
+
+<div id="background">
+
+    <div class="moon"></div>
+
+    <div class="city">
+
+        <div class="building"
+             style="width:14%;height:70%">
+        </div>
+
+        <div class="building"
+             style="width:18%;height:45%">
+        </div>
+
+        <div class="building"
+             style="width:12%;height:85%">
+        </div>
+
+        <div class="building"
+             style="width:20%;height:55%">
+        </div>
+
+        <div class="building"
+             style="width:13%;height:75%">
+        </div>
+
+        <div class="building"
+             style="width:23%;height:50%">
+        </div>
+
+    </div>
+
+</div>
+
+<div
+    class="petals"
+    id="petals">
+</div>
+
+<!-- =========================
+INTRO
+========================= -->
+
+<section
+    class="screen active"
+    id="intro">
+
+    <div class="korean">
+        생일 축하해
+    </div>
+
+    <div class="subtitle">
+        Všechno nejlepší, Elise! ✨
+    </div>
+
+    <div class="smallText">
+        ČEKÁ NA TEBE MALÉ DOBRODRUŽSTVÍ
+    </div>
+
+    <button
+        onclick="startAdventure()">
+        ZAČÍT
+    </button>
+
+</section>
+
+<!-- =========================
+BALLOONS
+========================= -->
+
+<section
+    class="screen"
+    id="balloonGame">
+
+    <div class="gameTitle">
+        🎈 PRASKNI BALÓNKY
+    </div>
+
+    <div class="counter">
+
+        <span id="balloonScore">
+            0
+        </span>
+
+        / 15
+
+    </div>
+
+    <div id="balloonArea">
+    </div>
+
+</section>
+
+<!-- =========================
+GIFTS
+========================= -->
+
+<section
+    class="screen"
+    id="giftGame">
+
+    <div class="gameTitle">
+        🎁 NAJDI DÁREK
+    </div>
+
+    <div id="gifts">
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+        <div class="gift"
+             onclick="giftClick(this)">
+             🎁
+        </div>
+
+    </div>
+
+    <div id="giftMessage">
+        Vyber si správně 👀
+    </div>
+
+</section>
+
+<!-- =========================
+NOODLE GAME
+========================= -->
+
+<section
+    class="screen"
+    id="starGame">
+
+    <div class="gameTitle">
+        🍜 CHYŤ NUDLE
+    </div>
+
+    <div class="counter">
+
+        NUDLE:
+
+        <span id="starScore">
+            0
+        </span>
+
+        / 25
+
+    </div>
+
+    <div id="starGameArea">
+
+        <div id="player">
+
+            <div class="anime-hair">
+            </div>
+
+            <div class="anime-head">
+            </div>
+
+            <div class="anime-face">
+
+                <div class="eye left">
+                </div>
+
+                <div class="eye right">
+                </div>
+
+                <div class="mouth">
+                </div>
+
+            </div>
+
+            <div class="arm left">
+            </div>
+
+            <div class="arm right">
+            </div>
+
+            <div class="anime-body">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+WAIT...
+========================= -->
+
+<section
+    class="screen"
+    id="endingTransition">
+
+    <div class="waitText">
+        Počkej... to ještě není všechno.
+    </div>
+
+    <button
+        id="continueButton"
+        onclick="startEnding()">
+        POKRAČOVAT
+    </button>
+
+</section>
+
+<!-- =========================
+SEOUL ENDING
+========================= -->
+
+<section
+    class="screen"
+    id="seoulEnding">
+
+    <div class="seoulMoon">
+    </div>
+
+    <div class="neonSign">
+        서울 ✦ SEOUL
+    </div>
+
+    <div class="seoulSkyline">
+
+        <div class="seoulBuilding"
+             style="width:12%;height:55%">
+        </div>
+
+        <div class="seoulBuilding"
+             style="width:16%;height:80%">
+        </div>
+
+        <div class="seoulBuilding"
+             style="width:10%;height:48%">
+        </div>
+
+        <div class="seoulBuilding"
+             style="width:18%;height:68%">
+        </div>
+
+        <div class="seoulBuilding"
+             style="width:13%;height:90%">
+        </div>
+
+        <div class="seoulBuilding"
+             style="width:14%;height:58%">
+        </div>
+
+        <div class="seoulBuilding"
+             style="width:17%;height:75%">
+        </div>
+
+    </div>
+
+    <div class="endingContent">
+
+        <div class="endingKorean">
+            생일 축하해
+        </div>
+
+        <div class="endingName">
+            Elise 🌸
+        </div>
+
+        <div class="smallText"
+             style="margin-top:20px">
+
+            JEŠTĚ DVĚ MALÉ VĚCI...
+
+        </div>
+
+        <div class="envelopes">
+
+            <div
+                class="envelope"
+                id="envelope1"
+                onclick="openLetter(1)">
+            </div>
+
+            <div
+                class="envelope"
+                id="envelope2"
+                onclick="openLetter(2)">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+LETTER OVERLAY
+========================= -->
+
+<div id="letterOverlay">
+
+    <div class="letter">
+
+        <div
+            class="letterEmoji"
+            id="letterEmoji">
+            🌸
+        </div>
+
+        <div
+            class="letterTitle"
+            id="letterTitle">
+        </div>
+
+        <div
+            class="letterText"
+            id="letterText">
+        </div>
+
+        <div
+            id="ticketContainer">
+        </div>
+
+        <button
+            class="closeLetter"
+            onclick="closeLetter()">
+            ZAVŘÍT
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+FINAL SCREEN
+========================= -->
+
+<section
+    class="screen"
+    id="finalScreen">
+
+    <div id="confetti">
+    </div>
+
+    <div class="finalKorean">
+        생일 축하해 🌸
+    </div>
+
+    <div class="finalMessage">
+        Užij si svůj den, Elise.
+    </div>
+
+    <div
+        class="signature"
+        id="signature"
+        onclick="signatureClick()">
+
+        made by Me the big N
+
+    </div>
+
+</section>
+
+<!-- =========================
+EASTER EGG
+========================= -->
+
+<div
+    id="easterEgg"
+    onclick="closeEasterEgg()">
+
+    <div class="easterBig">
+        😼🌸🍜
+    </div>
+
+    <div class="easterText">
+        TY JSI NA TO FAKT KLIKALA 5×? 😭
+    </div>
+
+    <div class="easterSmall">
+        achievement unlocked: zvědavost 100
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+SCREEN SYSTEM
+========================= */
+
+function showScreen(id) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen => {
+
+            screen
+                .classList
+                .remove("active");
+
+        });
+
+    document
+        .getElementById(id)
+        .classList
+        .add("active");
+}
+
+/* =========================
+SAKURA
+========================= */
+
+function createPetal() {
+
+    const petal =
+        document.createElement("div");
+
+    petal.className =
+        "petal";
+
+    petal.innerHTML =
+        "🌸";
+
+    petal.style.left =
+        Math.random() * 100 + "vw";
+
+    petal.style.fontSize =
+        (10 + Math.random() * 14)
+        + "px";
+
+    petal.style.animationDuration =
+        (6 + Math.random() * 8)
+        + "s";
+
+    document
+        .getElementById("petals")
+        .appendChild(petal);
+
+    setTimeout(() => {
+
+        petal.remove();
+
+    },15000);
+}
+
+setInterval(
+    createPetal,
+    900
+);
+
+/* =========================
+START
+========================= */
+
+function startAdventure() {
+
+    showScreen(
+        "balloonGame"
+    );
+
+    startBalloonGame();
+}
+
+/* =========================
+BALLOONS
+========================= */
+
+let balloonScore = 0;
+
+let balloonInterval;
+
+function startBalloonGame() {
+
+    balloonScore = 0;
+
+    document
+        .getElementById(
+            "balloonScore"
+        )
+        .innerText = 0;
+
+    balloonInterval =
+        setInterval(
+            createBalloon,
+            650
+        );
+}
+
+function createBalloon() {
+
+    if(balloonScore >= 15) {
+        return;
+    }
+
+    const area =
+        document.getElementById(
+            "balloonArea"
+        );
+
+    const balloon =
+        document.createElement(
+            "div"
+        );
+
+    balloon.className =
+        "balloon";
+
+    const colors = [
+
+        "#ff4fc8",
+        "#795cff",
+        "#58dfff",
+        "#ff769f",
+        "#ffd45e"
+
+    ];
+
+    balloon.style.background =
+        colors[
+            Math.floor(
+                Math.random()
+                * colors.length
+            )
+        ];
+
+    balloon.style.left =
+        Math.random()
+        * 85
+        + "%";
+
+    balloon.style.animationDuration =
+        (4 + Math.random() * 2)
+        + "s";
+
+    balloon.addEventListener(
+        "pointerdown",
+        function(e) {
+
+            popBalloon(
+                balloon,
+                e.clientX,
+                e.clientY
+            );
+
+        }
+    );
+
+    area.appendChild(
+        balloon
+    );
+
+    setTimeout(() => {
+
+        if(
+            balloon.parentNode
+        ) {
+
+            balloon.remove();
+
+        }
+
+    },6500);
+}
+
+function popBalloon(
+    balloon,
+    x,
+    y
+) {
+
+    if(
+        balloon.dataset.popped
+    ) {
+
+        return;
+
+    }
+
+    balloon.dataset.popped =
+        true;
+
+    balloon.remove();
+
+    balloonScore++;
+
+    document
+        .getElementById(
+            "balloonScore"
+        )
+        .innerText =
+            balloonScore;
+
+    const pop =
+        document.createElement(
+            "div"
+        );
+
+    pop.className =
+        "popText";
+
+    pop.innerHTML =
+        "POP! ✨";
+
+    pop.style.left =
+        x - 30 + "px";
+
+    pop.style.top =
+        y - 20 + "px";
+
+    document.body
+        .appendChild(pop);
+
+    setTimeout(() => {
+
+        pop.remove();
+
+    },600);
+
+    if(
+        balloonScore >= 15
+    ) {
+
+        clearInterval(
+            balloonInterval
+        );
+
+        setTimeout(() => {
+
+            showScreen(
+                "giftGame"
+            );
+
+        },900);
+    }
+}
+
+/* =========================
+GIFTS
+========================= */
+
+let giftAttempts = 0;
+
+function giftClick(gift) {
+
+    giftAttempts++;
+
+    const message =
+        document.getElementById(
+            "giftMessage"
+        );
+
+    gift.classList
+        .add("shake");
+
+    setTimeout(() => {
+
+        gift.classList
+            .remove("shake");
+
+    },400);
+
+    if(
+        giftAttempts === 1
+    ) {
+
+        message.innerHTML =
+            "아니야~ 😌";
+
+    }
+
+    else if(
+        giftAttempts === 2
+    ) {
+
+        message.innerHTML =
+            "Vedle 👀";
+
+    }
+
+    else if(
+        giftAttempts === 3
+    ) {
+
+        message.innerHTML =
+            "Co je ?";
+
+    }
+
+    else if(
+        giftAttempts === 4
+    ) {
+
+        message.innerHTML =
+            "POČKAT— ON SE TEN DÁREK PRÁVĚ POHNUL?! 😭";
+
+        moveGift(gift);
+
+    }
+
+    else if(
+        giftAttempts === 5
+    ) {
+
+        message.innerHTML =
+            "Skoro... 😏";
+
+        moveGift(gift);
+
+    }
+
+    else {
+
+        gift.innerHTML =
+            "✨";
+
+        message.innerHTML =
+            "GOOOOD JOB 🎉";
+
+        document
+            .querySelectorAll(
+                ".gift"
+            )
+            .forEach(g => {
+
+                g.style.pointerEvents =
+                    "none";
+
+            });
+
+        setTimeout(() => {
+
+            showScreen(
+                "starGame"
+            );
+
+            startStarGame();
+
+        },1500);
+    }
+}
+
+function moveGift(gift) {
+
+    gift.style.transform =
+        "translate("
+        + (Math.random()*100-50)
+        + "px,"
+        + (Math.random()*80-40)
+        + "px)";
+
+    setTimeout(() => {
+
+        gift.style.transform =
+            "";
+
+    },500);
+}
+
+/* =========================
+NOODLE GAME
+========================= */
+
+let starScore = 0;
+
+let starInterval;
+
+let gameRunning = false;
+
+function startStarGame() {
+
+    starScore = 0;
+
+    gameRunning = true;
+
+    document
+        .getElementById(
+            "starScore"
+        )
+        .innerText = 0;
+
+    const area =
+        document.getElementById(
+            "starGameArea"
+        );
+
+    area.addEventListener(
+        "pointermove",
+        movePlayer
+    );
+
+    area.addEventListener(
+        "pointerdown",
+        movePlayer
+    );
+
+    starInterval =
+        setInterval(
+            createFallingObject,
+            650
+        );
+}
+
+function movePlayer(e) {
+
+    if(!gameRunning) {
+        return;
+    }
+
+    const area =
+        document.getElementById(
+            "starGameArea"
+        );
+
+    const rect =
+        area.getBoundingClientRect();
+
+    let x =
+        e.clientX
+        - rect.left;
+
+    const player =
+        document.getElementById(
+            "player"
+        );
+
+    x =
+        Math.max(
+            45,
+            Math.min(
+                rect.width - 45,
+                x
+            )
+        );
+
+    player.style.left =
+        x + "px";
+}
+
+function createFallingObject() {
+
+    if(!gameRunning) {
+        return;
+    }
+
+    const area =
+        document.getElementById(
+            "starGameArea"
+        );
+
+    const item =
+        document.createElement(
+            "div"
+        );
+
+    item.className =
+        "falling";
+
+    const random =
+        Math.random();
+
+    let type;
+
+    if(random < .13) {
+
+        type =
+            "bomb";
+
+        item.innerHTML =
+            '<div class="bomb">💣</div>';
+
+    }
+
+    else if(
+        random < .25
+    ) {
+
+        type =
+            "gold";
+
+        item.innerHTML = `
+            <div class="noodlePack goldNoodle">
+
+                <div class="fire">
+                    🔥
+                </div>
+
+                <div class="label">
+                    BULDAK
+                </div>
+
+                <div class="koreanLabel">
+                    불닭
+                </div>
+
+            </div>
+        `;
+
+    }
+
+    else {
+
+        type =
+            "noodle";
+
+        item.innerHTML = `
+            <div class="noodlePack">
+
+                <div class="fire">
+                    🍜
+                </div>
+
+                <div class="label">
+                    BULDAK
+                </div>
+
+                <div class="koreanLabel">
+                    불닭
+                </div>
+
+            </div>
+        `;
+
+    }
+
+    item.dataset.type =
+        type;
+
+    item.style.left =
+        Math.random()
+        * 85
+        + "%";
+
+    item.style.animationDuration =
+        (3 + Math.random()*1.4)
+        + "s";
+
+    area.appendChild(
+        item
+    );
+
+    checkCollision(
+        item
+    );
+
+    setTimeout(() => {
+
+        if(item.parentNode) {
+
+            item.remove();
+
+        }
+
+    },5000);
+}
+
+function checkCollision(item) {
+
+    const collision =
+        setInterval(() => {
+
+            if(
+                !item.parentNode
+            ) {
+
+                clearInterval(
+                    collision
+                );
+
+                return;
+            }
+
+            const itemRect =
+                item.getBoundingClientRect();
+
+            const playerRect =
+                document
+                    .getElementById(
+                        "player"
+                    )
+                    .getBoundingClientRect();
+
+            const touching =
+                !(
+                    itemRect.right
+                    < playerRect.left
+                    ||
+
+                    itemRect.left
+                    > playerRect.right
+                    ||
+
+                    itemRect.bottom
+                    < playerRect.top
+                    ||
+
+                    itemRect.top
+                    > playerRect.bottom
+                );
+
+            if(touching) {
+
+                const type =
+                    item.dataset.type;
+
+                if(
+                    type ===
+                    "noodle"
+                ) {
+
+                    starScore += 1;
+
+                    happyAnimation(
+                        "+1 🍜"
+                    );
+
+                }
+
+                else if(
+                    type ===
+                    "gold"
+                ) {
+
+                    starScore += 3;
+
+                    happyAnimation(
+                        "+3 🔥"
+                    );
+
+                }
+
+                else if(
+                    type ===
+                    "bomb"
+                ) {
+
+                    starScore -= 2;
+
+                    if(
+                        starScore < 0
+                    ) {
+
+                        starScore = 0;
+
+                    }
+
+                    if(
+                        navigator.vibrate
+                    ) {
+
+                        navigator.vibrate(
+                            120
+                        );
+
+                    }
+
+                }
+
+                document
+                    .getElementById(
+                        "starScore"
+                    )
+                    .innerText =
+                        starScore;
+
+                item.remove();
+
+                clearInterval(
+                    collision
+                );
+
+                if(
+                    starScore >= 25
+                ) {
+
+                    finishStarGame();
+
+                }
+            }
+
+        },40);
+}
+
+/* =========================
+HAPPY ANIMATION
+========================= */
+
+function happyAnimation(text) {
+
+    const player =
+        document.getElementById(
+            "player"
+        );
+
+    player.classList
+        .remove("happy");
+
+    void player.offsetWidth;
+
+    player.classList
+        .add("happy");
+
+    setTimeout(() => {
+
+        player.classList
+            .remove("happy");
+
+    },450);
+
+    const rect =
+        player.getBoundingClientRect();
+
+    const happyText =
+        document.createElement(
+            "div"
+        );
+
+    happyText.className =
+        "happyText";
+
+    happyText.innerHTML =
+        text + " ✨";
+
+    happyText.style.left =
+        (
+            rect.left
+            + rect.width/2
+            - 25
+        )
+        + "px";
+
+    happyText.style.top =
+        (
+            rect.top
+            - 10
+        )
+        + "px";
+
+    document.body
+        .appendChild(
+            happyText
+        );
+
+    setTimeout(() => {
+
+        happyText.remove();
+
+    },800);
+}
+
+/* =========================
+FINISH NOODLE GAME
+========================= */
+
+function finishStarGame() {
+
+    if(!gameRunning) {
+        return;
+    }
+
+    gameRunning =
+        false;
+
+    clearInterval(
+        starInterval
+    );
+
+    document
+        .querySelectorAll(
+            ".falling"
+        )
+        .forEach(item => {
+
+            item.remove();
+
+        });
+
+    setTimeout(() => {
+
+        showScreen(
+            "endingTransition"
+        );
+
+    },900);
+}
+
+/* =========================
+START ENDING
+========================= */
+
+function startEnding() {
+
+    showScreen(
+        "seoulEnding"
+    );
+}
+
+/* =========================
+LETTERS
+========================= */
+
+let openedLetters =
+    new Set();
+
+let currentLetter = 0;
+
+function openLetter(number) {
+
+    currentLetter =
+        number;
+
+    openedLetters.add(
+        number
+    );
+
+    document
+        .getElementById(
+            "envelope" + number
+        )
+        .classList
+        .add("opened");
+
+    const overlay =
+        document.getElementById(
+            "letterOverlay"
+        );
+
+    const emoji =
+        document.getElementById(
+            "letterEmoji"
+        );
+
+    const title =
+        document.getElementById(
+            "letterTitle"
+        );
+
+    const text =
+        document.getElementById(
+            "letterText"
+        );
+
+    const ticket =
+        document.getElementById(
+            "ticketContainer"
+        );
+
+    ticket.innerHTML =
+        "";
+
+    if(number === 1) {
+
+        emoji.innerHTML =
+            "🎂🐈";
+
+        title.innerHTML =
+            "Všechno nejlepší!";
+
+        text.innerHTML =
+            "Všechno nejlepší přeju já, mamuša a těch milion mejch koček 🌸";
+
+    }
+
+    else {
+
+        emoji.innerHTML =
+            "🇰🇷✈️";
+
+        title.innerHTML =
+            "Jednou...";
+
+        text.innerHTML =
+            "🇰🇷";
+
+        ticket.innerHTML = `
+
+            <div class="koreaTicket">
+
+                <div class="ticketRoute">
+
+                    <span>
+                        PRG
+                    </span>
+
+                    <span class="ticketPlane">
+                        ✈
+                    </span>
+
+                    <span>
+                        ICN
+                    </span>
+
+                </div>
+
+                <div class="ticketSmall">
+                    PRAGUE → SEOUL
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+    overlay.classList
+        .add("active");
+}
+
+function closeLetter() {
+
+    document
+        .getElementById(
+            "letterOverlay"
+        )
+        .classList
+        .remove("active");
+
+    if(
+        openedLetters.size === 2
+    ) {
+
+        setTimeout(() => {
+
+            showScreen(
+                "finalScreen"
+            );
+
+            startConfetti();
+
+        },700);
+    }
+}
+
+/* =========================
+CONFETTI
+========================= */
+
+function startConfetti() {
+
+    const container =
+        document.getElementById(
+            "confetti"
+        );
+
+    container.innerHTML =
+        "";
+
+    const symbols = [
+
+        "✨",
+        "🌸",
+        "⭐",
+        "🎉",
+        "💫",
+        "🍜",
+        "🇰🇷"
+
+    ];
+
+    for(
+        let i = 0;
+        i < 80;
+        i++
+    ) {
+
+        setTimeout(() => {
+
+            const piece =
+                document.createElement(
+                    "div"
+                );
+
+            piece.className =
+                "confettiPiece";
+
+            piece.innerHTML =
+                symbols[
+                    Math.floor(
+                        Math.random()
+                        * symbols.length
+                    )
+                ];
+
+            piece.style.left =
+                Math.random()
+                * 100
+                + "%";
+
+            piece.style.animationDuration =
+                (
+                    3
+                    + Math.random()
+                    * 4
+                )
+                + "s";
+
+            container.appendChild(
+                piece
+            );
+
+            setTimeout(() => {
+
+                piece.remove();
+
+            },7000);
+
+        },i * 55);
+    }
+}
+
+/* =========================
+EASTER EGG
+========================= */
+
+let signatureClicks = 0;
+
+let signatureTimer;
+
+function signatureClick() {
+
+    signatureClicks++;
+
+    clearTimeout(
+        signatureTimer
+    );
+
+    signatureTimer =
+        setTimeout(() => {
+
+            signatureClicks =
+                0;
+
+        },3000);
+
+    if(
+        signatureClicks >= 5
+    ) {
+
+        signatureClicks =
+            0;
+
+        document
+            .getElementById(
+                "easterEgg"
+            )
+            .classList
+            .add("active");
+
+        if(
+            navigator.vibrate
+        ) {
+
+            navigator.vibrate(
+                [
+                    100,
+                    50,
+                    100,
+                    50,
+                    250
+                ]
+            );
+
+        }
+    }
+}
+
+function closeEasterEgg() {
+
+    document
+        .getElementById(
+            "easterEgg"
+        )
+        .classList
+        .remove("active");
+}
+
+</script>
+
+</body>
+</html>
